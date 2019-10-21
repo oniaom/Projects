@@ -1,0 +1,10 @@
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\bin\Debug\Project Calculator.exe.config
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\bin\Debug\Project Calculator.exe
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\bin\Debug\Project Calculator.pdb
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\obj\Debug\Project Calculator.csprojAssemblyReference.cache
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\obj\Debug\Project_Calculator.Form1.resources
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\obj\Debug\Project_Calculator.Properties.Resources.resources
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\obj\Debug\Project Calculator.csproj.GenerateResource.cache
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\obj\Debug\Project Calculator.csproj.CoreCompileInputs.cache
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\obj\Debug\Project Calculator.exe
+D:\Coding Projects\Coding challenges (c#)\Project Calculator\Project Calculator\Project Calculator\obj\Debug\Project Calculator.pdb
