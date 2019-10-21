@@ -17,6 +17,12 @@ namespace Project_Calculator
             InitializeComponent();
             
         }
+        /*
+        Initializing 3 Vars
+        First_Number - Is the main number I'll be using to store the user's input
+        inProgress - To see if the user pressed any calculation actions (+.-.*,/)
+        Calc_State - To know which calculation action button the user pressed
+        */
         public int First_Number;
         public bool inProgress = false;
         public string Calc_State;
@@ -76,14 +82,20 @@ namespace Project_Calculator
         }
 
         private void BMistake_Click(object sender, EventArgs e)
-        {
-            string Current = tbDisplay.Text;
+        {          
+          //If the user made a mistake in the numbers, remove the last number present.          
+           string Current = tbDisplay.Text;
            Current = Current.Substring(0, (tbDisplay.TextLength - 1));
            tbDisplay.Text = Current;
         }
 
         private void BPlus_Click(object sender, EventArgs e)
-        {         
+        {   
+            /*
+             Checks if the user pressed any calculation acions. 
+             If not, save the current number to our First_Number int, and clear the display
+             If yes, Add the number to the already existing previous number and update the var.
+            */
             if (inProgress == false)
             { 
             int CurrentNumber = int.Parse(tbDisplay.Text);
@@ -94,13 +106,11 @@ namespace Project_Calculator
             }
             else
             {
-                int total = First_Number + int.Parse(tbDisplay.Text);
-                
+                int total = First_Number + int.Parse(tbDisplay.Text);              
                 First_Number = total;
                 inProgress = false;
                 tbDisplay.Clear();
                 Calc_State = "+";
-
             }
 
 
@@ -108,6 +118,11 @@ namespace Project_Calculator
 
         private void BMinus_Click(object sender, EventArgs e)
         {
+            /*
+            Checks if the user pressed any calculation acions. 
+            If not, save the current number to our First_Number int, and clear the display
+            If yes, Subtract the number to the already existing previous number and update the var.
+           */
             if (inProgress == false)
             {
                 int CurrentNumber = int.Parse(tbDisplay.Text);
@@ -133,6 +148,11 @@ namespace Project_Calculator
 
         private void BTimes_Click(object sender, EventArgs e)
         {
+            /*
+            Checks if the user pressed any calculation acions. 
+            If not, save the current number to our First_Number int, and clear the display
+            If yes, Multiply the number to the already existing previous number and update the var.
+           */
             if (inProgress == false)
             {
                 int CurrentNumber = int.Parse(tbDisplay.Text);
@@ -154,6 +174,11 @@ namespace Project_Calculator
 
         private void BDivide_Click(object sender, EventArgs e)
         {
+            /*
+            Checks if the user pressed any calculation acions. 
+            If not, save the current number to our First_Number int, and clear the display
+            If yes, Divide the number to the already existing previous number and update the var.
+           */
             if (inProgress == false)
             {
                 int CurrentNumber = int.Parse(tbDisplay.Text);
@@ -175,8 +200,9 @@ namespace Project_Calculator
         }
         private void BCalculate_Click(object sender, EventArgs e)
         {
+            // Check which button the user pressed last, do the calculation and update the display.
             int total = 0;
-            string state= Calc_State;
+            string state = Calc_State;
             switch (state)
             {
                 case "+":
@@ -209,15 +235,6 @@ namespace Project_Calculator
             }
             
         }
-
-
-        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-
-
-        }
- 
         private void Form1_Load(object sender, EventArgs e)
         {
 

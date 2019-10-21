@@ -44,7 +44,6 @@
             this.bDivide = new System.Windows.Forms.Button();
             this.bMinus = new System.Windows.Forms.Button();
             this.bCalculate = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.bMistake = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -207,10 +206,6 @@
             this.bCalculate.UseVisualStyleBackColor = true;
             this.bCalculate.Click += new System.EventHandler(this.BCalculate_Click);
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
-            // 
             // bMistake
             // 
             this.bMistake.Location = new System.Drawing.Point(110, 297);
@@ -272,7 +267,6 @@
         private System.Windows.Forms.Button bDivide;
         private System.Windows.Forms.Button bMinus;
         private System.Windows.Forms.Button bCalculate;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button bMistake;
     }
 }
