@@ -1,0 +1,13 @@
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\bin\Debug\Project SorterAPP.exe.config
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\bin\Debug\Project SorterAPP.exe
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\bin\Debug\Project SorterAPP.pdb
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\bin\Debug\Project SorterDLL.dll
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\bin\Debug\Project SorterDLL.pdb
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project SorterAPP.csprojAssemblyReference.cache
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project_SorterAPP.Form1.resources
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project_SorterAPP.Properties.Resources.resources
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project SorterAPP.csproj.GenerateResource.cache
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project SorterAPP.csproj.CoreCompileInputs.cache
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project SorterAPP.csproj.CopyComplete
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project SorterAPP.exe
+D:\Coding Projects\Coding challenges (c#)\Project SorterAPP\Project SorterAPP\Project SorterAPP\obj\Debug\Project SorterAPP.pdb
