@@ -1,0 +1,6 @@
+D:\Coding Projects\Dlls\Project SorterDLL\Project SorterDLL\bin\Debug\Project SorterDLL.dll
+D:\Coding Projects\Dlls\Project SorterDLL\Project SorterDLL\bin\Debug\Project SorterDLL.pdb
+D:\Coding Projects\Dlls\Project SorterDLL\Project SorterDLL\obj\Debug\Project SorterDLL.csprojAssemblyReference.cache
+D:\Coding Projects\Dlls\Project SorterDLL\Project SorterDLL\obj\Debug\Project SorterDLL.csproj.CoreCompileInputs.cache
+D:\Coding Projects\Dlls\Project SorterDLL\Project SorterDLL\obj\Debug\Project SorterDLL.dll
+D:\Coding Projects\Dlls\Project SorterDLL\Project SorterDLL\obj\Debug\Project SorterDLL.pdb
