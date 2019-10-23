@@ -1,0 +1,10 @@
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\bin\Debug\Notepad.exe.config
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\bin\Debug\Notepad.exe
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\bin\Debug\Notepad.pdb
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\obj\Debug\Notepad.Form1.resources
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\obj\Debug\Notepad.Properties.Resources.resources
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\obj\Debug\Notepad.csproj.GenerateResource.Cache
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\obj\Debug\Notepad.exe
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\obj\Debug\Notepad.pdb
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\obj\Debug\Notepad.FormSettings.resources
+D:\Coding Projects\Coding challenges (c#)\Project notepad\Notepad\Notepad\obj\Debug\Notepad.csprojAssemblyReference.cache
