@@ -1,0 +1,5 @@
+D:\Coding Projects\Coding challenges (c#)\Project SearchTool\SearchDLL\SearchDLL\bin\Debug\SearchDLL.dll
+D:\Coding Projects\Coding challenges (c#)\Project SearchTool\SearchDLL\SearchDLL\bin\Debug\SearchDLL.pdb
+D:\Coding Projects\Coding challenges (c#)\Project SearchTool\SearchDLL\SearchDLL\obj\Debug\SearchDLL.dll
+D:\Coding Projects\Coding challenges (c#)\Project SearchTool\SearchDLL\SearchDLL\obj\Debug\SearchDLL.pdb
+D:\Coding Projects\Coding challenges (c#)\Project SearchTool\SearchDLL\SearchDLL\obj\Debug\SearchDLL.csprojAssemblyReference.cache
