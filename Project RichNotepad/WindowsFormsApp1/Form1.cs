@@ -32,41 +32,60 @@ namespace WindowsFormsApp1
                 richTextBox1.Font = new Font(richTextBox1.Font.FontFamily, Convert.ToInt32(value));        
 
             }
-        }  
+        }
+        public string[] test = new string[4];
+        
+        public string[] currentStates
+        {
+            get
+            {
+                return test;
+            }
+            set { }        
+        }
         public void RtbProperties (string[] properties)
         {
-            
-            StringBuilder builder = new StringBuilder();
-            foreach(string prop in properties)
-            {
-                builder.Append(prop+" ");
-            }                        
             FontStyle a = FontStyle.Regular;
             FontStyle b = FontStyle.Regular;
             FontStyle c = FontStyle.Regular;
             FontStyle d = FontStyle.Regular;
-            
-            
-                if (builder.ToString().Contains("Bold"))
+            FontStyle[] styles = new FontStyle[4];
+            StringBuilder builder = new StringBuilder();
+            foreach(string prop in properties)
+            {
+                builder.Append(prop+" ");
+            }                                                      
+            char[] abb = { ' ' };
+            string[] states = new string[4] ;
+            string[] ab = builder.ToString().Split(abb,StringSplitOptions.RemoveEmptyEntries);
+            for(int i=0; i<ab.Length; i++)
+            {
+                switch (ab[i])
                 {
-                    a = FontStyle.Bold;
+                    case "Bold":
+                        a = FontStyle.Bold;
+                        states.Append("Bold");
+                        break;
+                    case "Italic":
+                        b = FontStyle.Italic;
+                        states.Append("Italic");
+                        break;
+                    case "Underline":
+                        c = FontStyle.Underline;
+                        states.Append("Underline");
+                        break;
+                    case "Strikethrough":
+                        d = FontStyle.Strikeout;
+                        states.Append("Strikethrough");
+                        break;
+                    default:
+                        break;
                 }
-                if (builder.ToString().Contains("Italic"))
-                {
-                    b = FontStyle.Italic;
-                }
-                if (builder.ToString().Contains("Strike through"))
-                {
-                    c = FontStyle.Strikeout;
+            }
+            
+            test = states;
 
-                }
-                if (builder.ToString().Contains("Underline"))
-                {
-                    d = FontStyle.Underline;
-                }
-
-            
-               richTextBox1.Font = new Font(richTextBox1.Font, a|b|c|d);
+               richTextBox1.Font = new Font(richTextBox1.Font,a|b|c|d);
             
             
         }
@@ -146,7 +165,7 @@ namespace WindowsFormsApp1
             }
             catch (ArgumentOutOfRangeException)
             {
-                int number = Convert.ToInt32(textBox1.Text);
+                int number = int.Parse((textBox1.Text));
                 for(int i =0; i<=number; i++) { 
                 comboBox1.Items.Add(i);
                 }
@@ -162,6 +181,11 @@ namespace WindowsFormsApp1
             Form2 form2 = new Form2(this);
             form2.CurrentSize = TextSize;
             form2.Show();
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

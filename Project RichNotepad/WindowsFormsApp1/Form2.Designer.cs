@@ -73,6 +73,7 @@
             this.checkBox1.TabIndex = 3;
             this.checkBox1.Text = "Bold";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -99,9 +100,9 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Location = new System.Drawing.Point(331, 27);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(71, 17);
+            this.checkBox4.Size = new System.Drawing.Size(77, 17);
             this.checkBox4.TabIndex = 6;
-            this.checkBox4.Text = "Underline";
+            this.checkBox4.Text = "Underlined";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -117,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 356);
+            this.ClientSize = new System.Drawing.Size(437, 110);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
@@ -128,6 +129,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
