@@ -18,17 +18,17 @@ namespace WindowsFormsApp1
             this.FormClosing += RichNotepad_Closing;
             for(int i = 0; i<100; i++)
             {
-                comboBox1.Items.Add(i);
+                cbSize.Items.Add(i);
             }
-            comboBox1.SelectedIndex = 13;
-            textBox1.Text = "13";
+            cbSize.SelectedIndex = 13;
+            tbSize.Text = "13";
         }
         public bool textChanged = false;
         public string TextSize {
-            get { return textBox1.Text; }
+            get { return tbSize.Text; }
             set
             {
-                textBox1.Text = value;
+                tbSize.Text = value;
                 richTextBox1.Font = new Font(richTextBox1.Font.FontFamily, Convert.ToInt32(value));        
 
             }
@@ -49,7 +49,6 @@ namespace WindowsFormsApp1
             FontStyle b = FontStyle.Regular;
             FontStyle c = FontStyle.Regular;
             FontStyle d = FontStyle.Regular;
-            FontStyle[] styles = new FontStyle[4];
             StringBuilder builder = new StringBuilder();
             foreach(string prop in properties)
             {
@@ -151,32 +150,43 @@ namespace WindowsFormsApp1
 
         private void cbBullet_CheckedChanged(object sender, EventArgs e)
         {
-            if(richTextBox1.SelectionBullet == true){ richTextBox1.SelectionBullet = false; richTextBox1.Focus(); }
+            if(richTextBox1.SelectionBullet){ richTextBox1.SelectionBullet = false; richTextBox1.Focus(); }
             else { richTextBox1.SelectionBullet = true; richTextBox1.Focus(); }
             
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void tbSize_TextChanged(object sender, EventArgs e)
         {          
             try 
             { 
-            comboBox1.SelectedIndex = int.Parse(textBox1.Text);
-            richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, Convert.ToInt32(textBox1.Text));
+            cbSize.SelectedIndex = int.Parse(tbSize.Text);
+            richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, Convert.ToInt32(tbSize.Text));
               
             }
             catch (ArgumentOutOfRangeException)
-            {
-                int number = int.Parse((textBox1.Text));
-                for(int i =0; i<=number; i++) { 
-                comboBox1.Items.Add(i);
+            {               
+                int number = int.Parse(tbSize.Text);
+                if(number < 400)
+                {
+                    for (int i = 0; i <= number; i++)
+                    {
+                        cbSize.Items.Add(i);
+                    }
+                    cbSize.SelectedIndex = number;
+                    richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, number);
                 }
-                comboBox1.SelectedIndex = number;
-                richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, number);
+                else
+                {
+                    tbSize.Text = tbSize.Text.Substring(0, tbSize.Text.Length - 1);
+                    tbSize.SelectionStart = 3;
+                    cbSize.SelectedIndex = int.Parse(tbSize.Text);
+                }
             }
+               
             catch (FormatException)
             {
-                textBox1.Text = "1";
-                textBox1.SelectionLength = 1;
+                tbSize.Text = "1";
+                tbSize.SelectionLength = 1;
             }
 
         }
@@ -202,6 +212,11 @@ namespace WindowsFormsApp1
                     if (Close_or_Not == DialogResult.No) { e.Cancel = true; }
                 }
             }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
