@@ -15,7 +15,7 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            
+            this.FormClosing += RichNotepad_Closing;
             for(int i = 0; i<100; i++)
             {
                 comboBox1.Items.Add(i);
@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
             comboBox1.SelectedIndex = 13;
             textBox1.Text = "13";
         }
-
+        public bool textChanged = false;
         public string TextSize {
             get { return textBox1.Text; }
             set
@@ -89,7 +89,7 @@ namespace WindowsFormsApp1
             
             
         }
-        public bool textChanged = false;
+        
         public string openedFile = "";
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -120,6 +120,7 @@ namespace WindowsFormsApp1
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             // Saving a file 
+
             using (StreamWriter writing = new StreamWriter(saveFileDialog1.FileName))
             {
                 string tbText = richTextBox1.Rtf;
@@ -171,7 +172,11 @@ namespace WindowsFormsApp1
                 }
                 comboBox1.SelectedIndex = number;
                 richTextBox1.SelectionFont = new Font(richTextBox1.SelectionFont.FontFamily, number);
-
+            }
+            catch (FormatException)
+            {
+                textBox1.Text = "1";
+                textBox1.SelectionLength = 1;
             }
 
         }
@@ -185,7 +190,18 @@ namespace WindowsFormsApp1
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-
+            textChanged = true;
+        }
+        public void RichNotepad_Closing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                if (textChanged)
+                {
+                    DialogResult Close_or_Not = MessageBox.Show("You have unsaved changes. Quit Anyway?", "Notepad", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (Close_or_Not == DialogResult.No) { e.Cancel = true; }
+                }
+            }
         }
     }
 }

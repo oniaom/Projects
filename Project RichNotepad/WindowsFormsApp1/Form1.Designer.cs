@@ -129,11 +129,13 @@
             // 
             // saveFileDialog1
             // 
+            this.saveFileDialog1.FileName = "*.rtf";
+            this.saveFileDialog1.Filter = "Rich Text Files|*.rtf|Text Documents|*.txt";
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Rich Text Files|*.rtf|Text Documents|*.txt";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // cbBold
@@ -187,7 +189,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Rich Notepad";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

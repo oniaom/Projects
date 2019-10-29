@@ -40,7 +40,7 @@ namespace WindowsFormsApp1
             if (builder.ToString().Contains("Bold")) { checkBox1.Checked = true; }
             if (builder.ToString().Contains("Italic")) { checkBox2.Checked = true; }
             if (builder.ToString().Contains("Underline")) { checkBox3.Checked = true; }
-            if (builder.ToString().Contains("Strike through")) { checkBox4.Checked = true; }
+            if (builder.ToString().Contains("Strikethrough")) { checkBox4.Checked = true; }
 
 
 
