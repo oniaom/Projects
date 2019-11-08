@@ -2,7 +2,7 @@ import wget
 from appJar import gui
 import threading
 
-def ButtonClick(): # STart a separate thread to not lag the UI
+def ButtonClick(): # Start a separate thread to not lag the UI
     labelProgress = program.addLabel("message",text="Your program is Downloading...")
     otherThread = threading.Thread(target=thread, args=(1,))
     otherThread.start()
