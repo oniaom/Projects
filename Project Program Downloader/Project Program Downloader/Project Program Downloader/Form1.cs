@@ -49,13 +49,13 @@ namespace Project_Program_Downloader
             try
             {
                 url = url.TrimEnd(url[url.Length - 1]);
-                url = "https://www.ninite.com/" + url + "/ninite.exe";
+               string FinalUrl = "https://www.ninite.com/" + url + "/ninite.exe";
                 WebClient fileDownloader = new WebClient();
                 fileDownloader.DownloadProgressChanged += (s, progress) => { progressBar1.Value = progress.ProgressPercentage; lDownloadProgress.Visible = true; lDownloadProgress.Text = "Downloading..."; };
                 fileDownloader.DownloadFileCompleted += (s, completed) => { progressBar1.Value = 0; lDownloadProgress.Text = "Download Complete!"; };
                 try
                 {
-                    fileDownloader.DownloadFileAsync(new Uri(url), AppDomain.CurrentDomain.BaseDirectory + "/Ninite " + url + ".exe");
+                    fileDownloader.DownloadFileAsync(new Uri(FinalUrl), AppDomain.CurrentDomain.BaseDirectory + "/Ninite " + url + ".exe");
                 }
                 catch
                 {
