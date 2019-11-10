@@ -27,15 +27,13 @@ namespace Project_Program_Downloader
             string[] CheckWhatisChecked = new string[] { "Firefox", "Chrome", "LibreOffice", "7Zip", "Skype", "Discord", "qBittorrent", "Steam", "Everything", "VSCode", "VLC", "KLiteCodecs", "Spotify" };
             CheckBox[] checkBoxNames = new CheckBox[] { cbFirefox, cbBrowserChrome, cbLibreOffice, cb7Zip, cbSkype, cbDiscord, cbqBittorent, cbSteam, cbEverything, cbVSCode, cbVLC, cbCodecs, cbSpotify };
             string[] whatischecked = new string[13];
-            string hello = "";
+            string url = "";
             for (int i =0; i < checkBoxNames.Length; i++)
             {
                 if (checkBoxNames[i].Checked == true && checkBoxNames[i].Text.Contains(CheckWhatisChecked[i]))
                 {
                    whatischecked = whatischecked.Append(CheckWhatisChecked[i]).ToArray();
-                   //MessageBox.Show("okay");
                 }
-               
             }
                 for(int i=0; i < whatischecked.Length; i++)
                 {
@@ -45,19 +43,19 @@ namespace Project_Program_Downloader
                     }
                     else
                     {
-                        hello += whatischecked[i] + "-";
+                        url += whatischecked[i] + "-";
                     }
                 }
             try
             {
-                hello = hello.TrimEnd(hello[hello.Length - 1]);
-                string url = "https://www.ninite.com/" + hello + "/ninite.exe";
+                url = url.TrimEnd(url[url.Length - 1]);
+                url = "https://www.ninite.com/" + url + "/ninite.exe";
                 WebClient fileDownloader = new WebClient();
                 fileDownloader.DownloadProgressChanged += (s, progress) => { progressBar1.Value = progress.ProgressPercentage; lDownloadProgress.Visible = true; lDownloadProgress.Text = "Downloading..."; };
                 fileDownloader.DownloadFileCompleted += (s, completed) => { progressBar1.Value = 0; lDownloadProgress.Text = "Download Complete!"; };
                 try
                 {
-                    fileDownloader.DownloadFileAsync(new Uri(url), AppDomain.CurrentDomain.BaseDirectory + "/Ninite " + hello + ".exe");
+                    fileDownloader.DownloadFileAsync(new Uri(url), AppDomain.CurrentDomain.BaseDirectory + "/Ninite " + url + ".exe");
                 }
                 catch
                 {
