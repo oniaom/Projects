@@ -3,45 +3,25 @@ from appJar import gui
 import wget
 import urllib.error
 
+
 app = gui()
 CheckedBoxes = []  # Array of which checkboxes were checked
 success = False
 firstItteration = True
 
+
 def ButtonClick():
     global firstItteration
     firstItteration = False
     selectedPrograms = ""  # We check which boxes were checked, append them to CheckedBoxes, and put them in a string with dashes.
-    if(app.getCheckBox("cbBrowserFirefox")):
-        CheckedBoxes.append("firefox")
-    if(app.getCheckBox("cbBrowserChrome")):
-        CheckedBoxes.append("chrome")
-    if(app.getCheckBox("cbLibreOffice")):
-        CheckedBoxes.append("libreoffice")
-    if(app.getCheckBox("cb7Zip")):
-        CheckedBoxes.append("7zip")
-    if(app.getCheckBox("cbSkype")):
-        CheckedBoxes.append("skype")
-    if(app.getCheckBox("cbDiscord")):
-        CheckedBoxes.append("discord")
-    if(app.getCheckBox("cbqBittorrent")):
-        CheckedBoxes.append("qbittorrent")
-    if(app.getCheckBox("cbSteam")):
-        CheckedBoxes.append("steam")
-    if(app.getCheckBox("cbEverything")):
-        CheckedBoxes.append("everything")
-    if(app.getCheckBox("cbVSCode")):
-        CheckedBoxes.append("vscode")
-    if(app.getCheckBox("cbVLC")):
-        CheckedBoxes.append("vlc")
-    if(app.getCheckBox("cbCodecs")):
-        CheckedBoxes.append("klitecodecs")
-    if(app.getCheckBox("cbSpotify")):
-        CheckedBoxes.append("spotify")
+    selectionCheckBoxes = ["cbBrowserFirefox","cbBrowserChrome","cbLibreOffice","cb7Zip","cbSkype","cbDiscord","cbqBittorrent","cbSteam","cbEverything","cbVSCode","cbVLC","cbCodecs","cbSpotify"]
+    selectionCorrespondingPrograms = ["firefox","chrome","libreoffice","7zip","skype","discord","qbittorrent","steam","everything","vscode","vlc","klitecodecs","spotify"]
+    for i in range(len(selectionCheckBoxes)):
+     if app.getCheckBox(selectionCheckBoxes[i]):
+        CheckedBoxes.append(selectionCorrespondingPrograms[i])
     # And we add dashes to each one (That's how ninite works)
     for programs in CheckedBoxes:
         selectedPrograms += programs + "-"
-
     # Since the last dash is going to cause us problems, we have to remove it.
     RemoveLastDash = selectedPrograms.rfind("-")
     selectedPrograms = selectedPrograms[:RemoveLastDash]+""+selectedPrograms[RemoveLastDash+1:]
