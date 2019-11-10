@@ -2,7 +2,6 @@
 from appJar import gui
 import wget
 import urllib.error
-import threading
 
 app = gui()
 CheckedBoxes = []  # Array of which checkboxes were checked
