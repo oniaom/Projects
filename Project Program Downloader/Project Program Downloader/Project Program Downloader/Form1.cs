@@ -24,32 +24,42 @@ namespace Project_Program_Downloader
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            //First we need to initialize a few vars. Checkwhatischecked is what our checkboxes's texts are.
+            //Checkboxnames are our checkboxes's names
+            //Whatischecked is going to give us the checked checkboxes.
+
             string[] CheckWhatisChecked = new string[] { "Firefox", "Chrome", "LibreOffice", "7Zip", "Skype", "Discord", "qBittorrent", "Steam", "Everything", "VSCode", "VLC", "KLiteCodecs", "Spotify" };
             CheckBox[] checkBoxNames = new CheckBox[] { cbFirefox, cbBrowserChrome, cbLibreOffice, cb7Zip, cbSkype, cbDiscord, cbqBittorent, cbSteam, cbEverything, cbVSCode, cbVLC, cbCodecs, cbSpotify };
-            string[] whatischecked = new string[13];
+            string[] Whatischecked = new string[13];
             string url = "";
+
+            //Check if checkboxes are checked, and if they contain the program's name from checkwhatischecked. Then, append them to our whatischecked array.
             for (int i =0; i < checkBoxNames.Length; i++)
             {
                 if (checkBoxNames[i].Checked == true && checkBoxNames[i].Text.Contains(CheckWhatisChecked[i]))
                 {
-                   whatischecked = whatischecked.Append(CheckWhatisChecked[i]).ToArray();
+                   Whatischecked = Whatischecked.Append(CheckWhatisChecked[i]).ToArray();
                 }
             }
-                for(int i=0; i < whatischecked.Length; i++)
+                //We now create a url based on what checkboxes we found checked.
+
+                for(int i=0; i < Whatischecked.Length; i++)
                 {
-                    if(whatischecked[i] == null | whatischecked[i] == "" | whatischecked[i] == " ")
+                    if(Whatischecked[i] == null | Whatischecked[i] == "" | Whatischecked[i] == " ")
                     {
+                    //This is needed since we initiated an array with the length of 13 strings. If empty, do nothing
                         continue;
                     }
                     else
                     {
-                        url += whatischecked[i] + "-";
+                        url += Whatischecked[i] + "-";
                     }
                 }
             try
             {
+                //Remove the last " - " from the url, and download the file using WebClient.
                 url = url.TrimEnd(url[url.Length - 1]);
-               string FinalUrl = "https://www.ninite.com/" + url + "/ninite.exe";
+                string FinalUrl = "https://www.ninite.com/" + url + "/ninite.exe";
                 WebClient fileDownloader = new WebClient();
                 fileDownloader.DownloadProgressChanged += (s, progress) => { progressBar1.Value = progress.ProgressPercentage; lDownloadProgress.Visible = true; lDownloadProgress.Text = "Downloading..."; };
                 fileDownloader.DownloadFileCompleted += (s, completed) => { progressBar1.Value = 0; lDownloadProgress.Text = "Download Complete!"; };
