@@ -1,0 +1,2 @@
+Write your description. Put time in format mmss without ":". End with a dash. - 0000 0000
+This is an example: - 0000 0230
