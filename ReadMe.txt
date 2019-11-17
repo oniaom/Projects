@@ -10,3 +10,4 @@ Project Program Downloader - A program that downloads Ninite's installer for the
 Project RichNotepad - A very basic Notepad that supports opening Rich Text Files in C# 
 Project SearchTool - An expiremental program showcasing search capabilities from an array in C# 
 Project SorterAPP & Project SorterDLL - An expiremental program showcasing using a DLL to sort numbers through user input in C#
+Project Timestamps - Input a description and a time stamp, and the program will create a formatted timestamps file with everything.
