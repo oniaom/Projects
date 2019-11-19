@@ -5,7 +5,7 @@ Write the correct format. Currently doesn't support hours.
 
 Correct format:
 
-Description - time in mmss
+Description - start time in mmss end time in mmss
 
 Example:
 
