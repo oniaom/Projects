@@ -38,25 +38,30 @@ while index < (len(time)): #Find if the user typed numbers before the intended t
 
 for timeIndexes in range(len(time)): #Make time in proper format ex 3:30
 	while i<2:
-		hi=str(time[timeIndexes][i])
-		cutinhalf = len(hi)//2
-		if len(hi) == 4:
-			hi=hi[:cutinhalf]+":"+hi[-cutinhalf:]
-		elif len(hi) <=3:
-			if hi=="0":
-				hi="0:00"
+		try:
+			hi=str(time[timeIndexes][i])
+			cutinhalf = len(hi)//2
+			if len(hi) == 4:
+				hi=hi[:cutinhalf]+":"+hi[-cutinhalf:]
+			elif len(hi) <=3:
+				if hi=="0":
+					hi="0:00"
+				else:
+					hi=hi[:1]+":"+hi[1:]
+			elif len(hi) > 6:
+				hi=hi+" Try a number below 6 digits."
 			else:
-				hi=hi[:1]+":"+hi[1:]
-		elif len(hi) > 6:
-			hi=hi+" Try a number below 6 digits."
-		else:
-			newcut=cutinhalf//2
-			testcut = (cutinhalf/2) /2
-			if testcut > 0.6 < 1:
-				hi=hi[:newcut+1]+":"+hi[newcut+1:cutinhalf+1]+":"+hi[cutinhalf+1:]
-			else:
-				hi=hi[:newcut]+":"+hi[newcut:cutinhalf+1]+":"+hi[cutinhalf+1:]
-		timeproper.append(str(hi))
+				newcut=cutinhalf//2
+				testcut = (cutinhalf/2) /2
+				if testcut > 0.6 < 1:
+					hi=hi[:newcut+1]+":"+hi[newcut+1:cutinhalf+1]+":"+hi[cutinhalf+1:]
+				else:
+					hi=hi[:newcut]+":"+hi[newcut:cutinhalf+1]+":"+hi[cutinhalf+1:]
+			timeproper.append(str(hi))
+		except IndexError:
+			hi=str(time[timeIndexes])
+			timeproper.append(str(hi))
+
 		i+=1
 	i=0
 
@@ -78,11 +83,16 @@ text = 0
 control=0
 
 while text < (len(stringbeforenum)): #This goes through all itterations and finds the longest string
-	a=("#"*20+'\n'+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+'\n')
-	if len(a) > longest:
-		longest = len(a)
-	text+=1
-	control+=2
+	try:
+		a=("#"*20+'\n'+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+'\n')
+		if len(a) > longest:
+			longest = len(a)
+		text+=1
+		control+=2
+	except IndexError:
+		a=("#"*20+'\n'+stringbeforenum[text]+":"+timefinal[0]+"\n")
+		text+=1
+		control+=2
 longest-=41
 a=""
 text=0
@@ -90,23 +100,30 @@ control=0
 firstTime = True
 
 while text < (len(stringbeforenum)): #Append 'Timestamps' once,then everyting else in the correct order
-	if written == False:
-		templongest = ((longest+10)//2) - 1
-		a= "#"*longest+"#"*21+"\n"+"#"+" "*templongest+'Timestamps:'+" "*templongest+"#"+'\n'
-		written=True
-		finalfile.write(a)
-	else:
-		if firstTime == True: #This makes sure that the hashes after Timestamps: are correct
-			a=(stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+'\n')
-			currentTextLength = len(a)
-			finaleHuhu = longest-currentTextLength+20
-			a=("#"*longest+"#"*21+'\n'+"#"+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+" "*finaleHuhu+"#"+'\n')
-			firstTime=False
+	try:
+		if written == False:
+			templongest = ((longest+10)//2) - 1
+			a= "#"*longest+"#"*21+"\n"+"#"+" "*templongest+'Timestamps:'+" "*templongest+"#"+'\n'
+			written=True
+			finalfile.write(a)
 		else:
-			a=(stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+'\n')
-			currentTextLength = len(a)
-			finaleHuhu = longest-currentTextLength+20
-			a=("#"*20+'\n'+"#"+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+" "*finaleHuhu+"#"+'\n')
+			if firstTime == True: #This makes sure that the hashes after Timestamps: are correct
+				a=(stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+'\n')
+				currentTextLength = len(a)
+				finaleHuhu = longest-currentTextLength+20
+				a=("#"*longest+"#"*21+'\n'+"#"+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+" "*finaleHuhu+"#"+'\n')
+				firstTime=False
+			else:
+				a=(stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+'\n')
+				currentTextLength = len(a)
+				finaleHuhu = longest-currentTextLength+20
+				a=("#"*20+'\n'+"#"+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+" "*finaleHuhu+"#"+'\n')
+			a+= "#"*longest+"#"
+			finalfile.write(a)
+			control+=2
+			text+=1
+	except IndexError:
+		a=("#"*20+'\n'+"#"+stringbeforenum[text])
 		a+= "#"*longest+"#"
 		finalfile.write(a)
 		control+=2
