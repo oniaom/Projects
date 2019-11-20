@@ -28,25 +28,44 @@ timestemp=0
 for times in timestamps:
 	a=times.split("- ")
 	timea.append(a[1])
-print(timea)
+
 
 
 for times in timestamps: #Make a list of times
     	a=([int(b) for b in times.split() if b.isdigit()])
     	time.append(a)
-
+print(time)
 i=0
-
-for timeIndexes in range(len(timea)): #Make time in proper format ex 3:30
+index=0
+while index < (len(time)):
+	print("time=",time[index])
+	print("len=",len(time[index]))
+	while(len(time[index]) >2):
+		print("index=",time[index])
+		temp = time[index][-1],time[index][-2]
+		print("testy too",temp)
+		time.remove(time[index])
+		print("done")
+		time.insert(0,temp)
+	index+=1
+print(time)
+for timeIndexes in range(len(time)): #Make time in proper format ex 3:30
 	while i<2:
 		hi=str(time[timeIndexes][i])
 		cutinhalf = len(hi)//2
 		if len(hi) == 4:
+			print(hi+" lenght 4")
 			hi=hi[:cutinhalf]+":"+hi[-cutinhalf:]
 		elif len(hi) <=3:
-			hi=hi[:1] +":" + hi[-2:]
-		if len(hi) > 6:
+			print(hi+" lenght 3")
+			if hi=="0":
+				hi="0:00"
+			else:
+				hi=hi[:1]+":"+hi[1:]
+
+		elif len(hi) > 6:
 			hi=hi+" Try a number below 6 digits."
+		
 		else:
 			newcut=cutinhalf//2
 			testcut = (cutinhalf/2) /2
@@ -55,6 +74,8 @@ for timeIndexes in range(len(timea)): #Make time in proper format ex 3:30
 				hi=hi[:newcut+1]+":"+hi[newcut+1:cutinhalf+1]+":"+hi[cutinhalf+1:]
 			else:
 				hi=hi[:newcut]+":"+hi[newcut:cutinhalf+1]+":"+hi[cutinhalf+1:]
+	
+		print(hi)
 		timeproper.append(str(hi))
 		i+=1
 	i=0
@@ -74,7 +95,7 @@ longest = 0
 
 finalfile=open('final.txt','w')
 text = 0
-
+control=0
 
 while text < (len(stringbeforenum)): #This goes through all itterations and finds the longest string
 	a=("#"*20+'\n'+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+'\n')
