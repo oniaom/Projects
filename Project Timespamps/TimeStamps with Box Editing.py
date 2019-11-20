@@ -22,19 +22,39 @@ for indexes in range(len(timestamps)): #Remove the \n from string
 				 timestamps[indexes]=timestamps[indexes].rstrip('\n')
 
 timestrings = timestamps
+timea=[]
+timestemp=0
+
+for times in timestamps:
+	a=times.split("- ")
+	timea.append(a[1])
+print(timea)
+
+
 for times in timestamps: #Make a list of times
     	a=([int(b) for b in times.split() if b.isdigit()])
     	time.append(a)
 
 i=0
 
-for timeIndexes in range(len(time)): #Make time in proper format ex 3:30
+for timeIndexes in range(len(timea)): #Make time in proper format ex 3:30
 	while i<2:
 		hi=str(time[timeIndexes][i])
+		cutinhalf = len(hi)//2
 		if len(hi) == 4:
-			hi=hi[:2]+":"+hi[-2:]
-		else:
+			hi=hi[:cutinhalf]+":"+hi[-cutinhalf:]
+		elif len(hi) <=3:
 			hi=hi[:1] +":" + hi[-2:]
+		if len(hi) > 6:
+			hi=hi+" Try a number below 6 digits."
+		else:
+			newcut=cutinhalf//2
+			testcut = (cutinhalf/2) /2
+			if testcut > 0.6 < 1:
+				print(testcut)
+				hi=hi[:newcut+1]+":"+hi[newcut+1:cutinhalf+1]+":"+hi[cutinhalf+1:]
+			else:
+				hi=hi[:newcut]+":"+hi[newcut:cutinhalf+1]+":"+hi[cutinhalf+1:]
 		timeproper.append(str(hi))
 		i+=1
 	i=0
@@ -86,10 +106,7 @@ while text < (len(stringbeforenum)): #Append 'Timestamps' once,then everyting el
 			currentTextLength = len(a)
 			finaleHuhu = longest-currentTextLength+20
 			a=("#"*20+'\n'+"#"+stringbeforenum[text]+timefinal[control] + " - " +timefinal[control+1]+" "*finaleHuhu+"#"+'\n')
-		if len(a) < longest:
-			a+= "#"*longest+"#"
-		else:
-			a+= "#"*longest+"#"
+		a+= "#"*longest+"#"
 		finalfile.write(a)
 		control+=2
 		text+=1
