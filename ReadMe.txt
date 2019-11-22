@@ -2,8 +2,8 @@ Projects
 These are my personal coding Projects.
 Feel free to take a look!
 --------------------------------------
-Individual Files - Folder containing the executable files for each   project. 
-Project Calculator - A simple calculator in C# Project    
+Individual Files - Folder containing the executable files for each project. 
+Project Calculator - A simple calculator in C#    
 DownloadManager - A very basic download manager in Python 
 Project Notepad - A clone of Windows's Notepad 
 Project Program Downloader - A program that downloads Ninite's installer for the user's selection. Available in C# and Python 
