@@ -2,7 +2,9 @@ Projects
 These are my personal coding Projects.
 Feel free to take a look!
 --------------------------------------
-Individual Files - Folder containing the executable files for each project. 
+This starts with the most recently added at the beginning.
+--------------------------------------
+Project Remember Clipboard - A program that stores and displays all of your clipboard contents during its lifetime.
 Project Calculator - A simple calculator in C#    
 DownloadManager - A very basic download manager in Python 
 Project Notepad - A clone of Windows's Notepad 
