@@ -4,6 +4,7 @@ Feel free to take a look!
 --------------------------------------
 This starts with the most recently added at the beginning.
 --------------------------------------
+File Sorter - A file sorter in Python. Sorts Applications,Pictures and Documents
 Project Remember Clipboard - A program that stores and displays all of your clipboard contents during its lifetime.
 Project Calculator - A simple calculator in C#    
 DownloadManager - A very basic download manager in Python 
