@@ -2,7 +2,6 @@ import os
 import appJar
 from appJar import gui
 
-
 '''
 def findExt(ext, filesInDir):    This is what findExt does. For debug purposes.
     desiredPrograms = []
@@ -22,7 +21,10 @@ def findExt(ext, filesInDir):  # Find the extension of choice inside the directo
 def moveFiles(array, name):  # Move files from their place to the respective folders
     workingDirectory = program.getEntry("directory")
     for file in array:
-        os.rename(workingDirectory + "/" + file, workingDirectory + "/" + name + "/" + file)
+        try:
+            os.rename(workingDirectory + "/" + file, workingDirectory + "/" + name + "/" + file)
+        except FileNotFoundError:
+            continue
 
 
 def Sort():  # Main function
@@ -40,9 +42,10 @@ def Sort():  # Main function
         filesInDir = os.listdir(dirToSort)
     except FileNotFoundError:
         program.errorBox("Error", "Invalid Directory. Please try again.")
-        program.stop()
+        program.setLabel("Success!", "")
 
-    programsInDir = findExt(Programs,filesInDir)  # Populate a list of programs,documents,and pictures from the directory
+    programsInDir = findExt(Programs,
+                            filesInDir)  # Populate a list of programs,documents,and pictures from the directory
     documentsInDir = findExt(Documents, filesInDir)
     picturesInDir = findExt(Pictures, filesInDir)
     allFiles = [programsInDir if programsInDir else False, documentsInDir if documentsInDir else False,
