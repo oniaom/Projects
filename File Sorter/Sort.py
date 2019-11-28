@@ -1,6 +1,7 @@
+import os
 import appJar
 from appJar import gui
-import os
+
 
 '''
 def findExt(ext, filesInDir):    This is what findExt does. For debug purposes.
@@ -18,9 +19,10 @@ def findExt(ext, filesInDir):  # Find the extension of choice inside the directo
     return desiredFiles
 
 
-def moveFiles(array, name, workingDirectory):  # Move files from their place to the respective folders
+def moveFiles(array, name):  # Move files from their place to the respective folders
+    workingDirectory = program.getEntry("directory")
     for file in array:
-        os.rename(workingDirectory + "\\" + file, workingDirectory + "\\" + name + "\\" + file)
+        os.rename(workingDirectory + "/" + file, workingDirectory + "/" + name + "/" + file)
 
 
 def Sort():  # Main function
@@ -40,25 +42,26 @@ def Sort():  # Main function
         program.errorBox("Error", "Invalid Directory. Please try again.")
         program.stop()
 
-    programsInDir = findExt(Programs, filesInDir)  # Populate a list of programs,documents,and pictures from the directory
+    programsInDir = findExt(Programs,filesInDir)  # Populate a list of programs,documents,and pictures from the directory
     documentsInDir = findExt(Documents, filesInDir)
     picturesInDir = findExt(Pictures, filesInDir)
+    allFiles = [programsInDir if programsInDir else False, documentsInDir if documentsInDir else False,
+                picturesInDir if picturesInDir else False]
+    makeDir = lambda directory: os.mkdir(workingDirectory + "/" + directory) if not os.path.exists(
+        workingDirectory + "/" + directory) else False
 
-    makeDir = lambda directory: os.mkdir(directory) if not os.path.exists(workingDirectory + "/" + directory) else False
+    dirsToMake = ["Programs", "Documents", "Pictures"]  # Create directories
 
-    dirsToMake = ["Applications", "Pictures", "Documents"]  # Create directories
-    for directories in dirsToMake:
-        makeDir(directories)
-
-    moveFiles(programsInDir, "Applications", workingDirectory)  # Move the files to their respective folders
-    moveFiles(documentsInDir, "Documents", workingDirectory)
-    moveFiles(picturesInDir, "Pictures", workingDirectory)
+    for corresponding in range(len(allFiles)):
+        if allFiles[corresponding]:
+            makeDir(dirsToMake[corresponding])
+            moveFiles(allFiles[corresponding], dirsToMake[corresponding])
 
     program.setLabel("Success!", "Success!")  # Done!
 
 
 program = gui("Sorter")
-program.setSize("300x100")
+program.setSize("300x130")
 program.resizable = False
 program.setSticky("nesw")
 program.setStretch("column")
