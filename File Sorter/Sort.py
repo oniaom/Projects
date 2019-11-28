@@ -15,7 +15,7 @@ def findExt(ext, filesInDir):    This is what findExt does. For debug purposes.
 
 
 def findExt(ext, filesInDir):  # Find the extension of choice inside the directory
-    desiredFiles = [Files for FIles in filesInDir for extension in ext if extension in Files]
+    desiredFiles = [Files for Files in filesInDir for extension in ext if extension in Files]
     return desiredFiles
 
 
