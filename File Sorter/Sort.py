@@ -33,10 +33,6 @@ def Sort():  # Main function
     except appJar.appjar.ItemLookupError:
         program.addLabel("Success!", "Sorting...")
 
-    Programs = [".exe", ".lnk"]
-    Documents = [".txt", ".pdf", ".doc", ".docx", ".rtf", ".odt"]
-    Pictures = [".jpg", ".png", ".gif", ".pic", ".ico", ".jpeg", ".bmp"]
-
     try:  # If the user entered a bad directory (ie nothing) stop the program.
         workingDirectory = dirToSort = program.getEntry("directory")
         filesInDir = os.listdir(dirToSort)
@@ -44,12 +40,16 @@ def Sort():  # Main function
         program.errorBox("Error", "Invalid Directory. Please try again.")
         program.setLabel("Success!", "")
 
-    programsInDir = findExt(Programs,
-                            filesInDir)  # Populate a list of programs,documents,and pictures from the directory
-    documentsInDir = findExt(Documents, filesInDir)
-    picturesInDir = findExt(Pictures, filesInDir)
-    allFiles = [programsInDir if programsInDir else False, documentsInDir if documentsInDir else False,
-                picturesInDir if picturesInDir else False]
+    fileNames = ["Programs","Documents","Pictures"]
+    fileTypes = [[".exe", ".lnk"],[".txt", ".pdf", ".doc", ".docx", ".rtf", ".odt"],[".jpg", ".png", ".gif", ".pic", ".ico", ".jpeg", ".bmp"]]
+    allFiles =[]
+
+    emptyOrNot = lambda array: array if array else False
+
+    for i in range(len(fileNames)):
+        allFiles.append(findExt(fileTypes[i],filesInDir))
+        emptyOrNot(allFiles[i])
+
     makeDir = lambda directory: os.mkdir(workingDirectory + "/" + directory) if not os.path.exists(
         workingDirectory + "/" + directory) else False
 
