@@ -28,11 +28,7 @@ def moveFiles(array, name):  # Move files from their place to the respective fol
 
 
 def Sort():  # Main function
-    try:  # If a label exists (ie 2nd+ iteration) set the text. Otherwise make a label.
-        program.setLabel("Success!", "Sorting...")
-    except appJar.appjar.ItemLookupError:
-        program.addLabel("Success!", "Sorting...")
-
+    program.setLabel("Success!", "Sorting...")
     try:  # If the user entered a bad directory (ie nothing) stop the program.
         workingDirectory = dirToSort = program.getEntry("directory")
         filesInDir = os.listdir(dirToSort)
@@ -71,4 +67,5 @@ program.setStretch("column")
 program.addLabel("Select Directory")
 program.addDirectoryEntry("directory")
 program.addButton("Sort!", Sort)
+program.addLabel("Success!","")
 program.go()
