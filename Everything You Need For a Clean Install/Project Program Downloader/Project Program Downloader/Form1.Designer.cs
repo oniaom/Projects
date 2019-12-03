@@ -427,7 +427,7 @@
             // 
             this.lGPU.AutoSize = true;
             this.lGPU.Enabled = false;
-            this.lGPU.Location = new System.Drawing.Point(525, 310);
+            this.lGPU.Location = new System.Drawing.Point(505, 310);
             this.lGPU.Name = "lGPU";
             this.lGPU.Size = new System.Drawing.Size(27, 13);
             this.lGPU.TabIndex = 0;
@@ -458,12 +458,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(697, 407);
             this.Controls.Add(this.tabControl1);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1024, 768);
             this.MinimumSize = new System.Drawing.Size(319, 231);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Program Downloader";
+            this.Text = "Fresh Install Assistant";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

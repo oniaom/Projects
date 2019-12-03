@@ -20,6 +20,7 @@ namespace Project_Program_Downloader
         {
             InitializeComponent();
             webBrowser1.ScriptErrorsSuppressed = true;
+            this.bAutoDetect.KeyDown += new KeyEventHandler(this.oniMode);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -78,12 +79,13 @@ namespace Project_Program_Downloader
                 {
                     fileDownloader.DownloadFileAsync(new Uri(FinalUrl), AppDomain.CurrentDomain.BaseDirectory + "/Ninite " + url + ".exe");
                 }
-                catch
+                catch //If the url goes down, or the user has no internet access, then present an error.
                 {
                     MessageBox.Show("Sorry, There was a problem. Make sure you have an active internet connection and try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                fileDownloader.Dispose();
             }
-            catch (IndexOutOfRangeException)
+            catch (IndexOutOfRangeException) // If the user hasn't clicked any checkboxes.
             {
                 MessageBox.Show("Sorry, There was a problem. Make sure you have ticked programs and try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -103,15 +105,17 @@ namespace Project_Program_Downloader
 
         private void bInstallExtensions_Click(object sender, EventArgs e)
         {
-            List<string> FirefoxWantedExtensions = new List<string>();
+            // This function get the selected extensions from a group list box, and opens the browser to the corresponding url.
+
+            List<string> FirefoxWantedExtensions = new List<string>(); // Since we don't know which were selected, a list is better.
             List<string> ChromeWantedExtensions = new List<string>();
 
-            foreach (string check in clbFirefox.CheckedItems) { FirefoxWantedExtensions.Add(check);}
+            foreach (string check in clbFirefox.CheckedItems) { FirefoxWantedExtensions.Add(check);} // Get the names of the checked and add them to the list we created earlier
             foreach (string check in clbChrome.CheckedItems) { ChromeWantedExtensions.Add(check);}
 
             Dictionary<string, string> FirefoxExtensionsDict = new Dictionary<string, string>()
             {
-
+                // Name, Url of the addons.
                 {"LastPass","https://addons.mozilla.org/en-US/firefox/addon/lastpass-password-manager/"},
                 {"Ublock Origin","https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/"},
                 {"Dark Reader","https://addons.mozilla.org/en-US/firefox/addon/darkreader/"},
@@ -119,18 +123,26 @@ namespace Project_Program_Downloader
             };
             Dictionary<string, string> ChromeExtensionsDict = new Dictionary<string, string>()
             {
-
+                // Name, Url of the addons.
                 {"LastPass","https://chrome.google.com/webstore/detail/lastpass-free-password-ma/hdokiejnpimakedhajhdlcegeplioahd"},
                 {"Ublock Origin","https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en"},
                 {"Dark Reader","https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh?hl=en"},
                 {"Honey","https://chrome.google.com/webstore/detail/honey/bmnlcjabgnpnenekpadlanbbkooimhnj?hl=en"}
             };
 
+            // Open the browser to the corresponding extension URL based on what was checked.
             foreach (string extensions in FirefoxWantedExtensions)
             {
                 if (FirefoxExtensionsDict.ContainsKey(extensions))
                 {
+                    try
+                    { 
                     Process.Start(@"C:\Program Files\Mozilla Firefox\firefox.exe", FirefoxExtensionsDict[extensions]);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("You don't have Firefox Installed!", "Firefox Not Found", MessageBoxButtons.OK ,MessageBoxIcon.Error);
+                    }
                 }
             }
 
@@ -138,7 +150,16 @@ namespace Project_Program_Downloader
             {
                 if (ChromeExtensionsDict.ContainsKey(extensions))
                 {
-                    Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", ChromeExtensionsDict[extensions]);
+                    try 
+                    {
+                        Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", ChromeExtensionsDict[extensions]);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("You don't have Chrome Installed!", "Chrome Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                   
                 }
             }
 
@@ -146,9 +167,11 @@ namespace Project_Program_Downloader
 
         private void bAutoDetect_Click(object sender, EventArgs e)
         {
+            // This function finds the GPU Model, and does the appropriate actions
             ManagementObjectSearcher gpuSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DisplayConfiguration");
 
             string foundGPU = "";
+            // We use the managementObjectSearcher to get the name of the GPU
             foreach(ManagementObject Object in gpuSearcher.Get())
             {
                 foreach ( PropertyData properties in Object.Properties)
@@ -156,29 +179,21 @@ namespace Project_Program_Downloader
                     if (properties.Name == "Description") { foundGPU = properties.Value.ToString(); }
                 }
             }
+            gpuSearcher.Dispose();
 
             lGPU.Visible = true;
             lGPU.Text = "GPU:\n"+foundGPU;
-
+            
+            // Check the vendor and execute the appropriate commands.
             if (foundGPU.Contains("NVIDIA") | foundGPU.Contains("GeForce"))
             {
-                if (Directory.Exists(@"C:\Program Files\Mozilla Firefox\"))
-                {
-                    Process.Start(@"C:\Program Files\Mozilla Firefox\firefox.exe", "https://www.nvidia.com/Download/Scan.aspx?lang=en-us" );
-                }
-                else if (Directory.Exists(@"C:\Program Files (x86)\Google\Chrome\Application\"))
-                {
-                    Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "https://www.nvidia.com/Download/Scan.aspx?lang=en-us");
-                }
-                else
-                {
-                    Process.Start("iexplore.exe", "https://www.nvidia.com/Download/Scan.aspx?lang=en-us");
-                }
+              Process.Start("https://www.nvidia.com/Download/Scan.aspx?lang=en-us"); // Open the Nvidia Autodetect site with the default browser.
             }
-            if (foundGPU.Contains("AMD") | foundGPU.Contains("ATI"))
+            else if (foundGPU.Contains("AMD") | foundGPU.Contains("ATI"))
             {
+                // AMD (and Intel) have their own downloadable Autodetect executable, unlike NVIDIA where you have to have Java installed.
                 pgDriverDownload.Visible = true;
-
+                // This block uses a WebClient to download that executable, and if the user wishes to, opens the installer.
                 string url = "https://drivers.amd.com/drivers/installer/19.30/beta/radeon-software-adrenalin-2019-19.12.1-minimalsetup-191202_web.exe";
 
                 WebClient amdDownload = new WebClient();
@@ -202,9 +217,11 @@ namespace Project_Program_Downloader
                     MessageBox.Show("Sorry, There was a problem. Make sure you have an active internet connection and try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 pgDriverDownload.Visible = false;
+                amdDownload.Dispose();
             }
             else
             {
+                // This is if the user doesn't have an Nvidia or AMD Gpu. It downloads Intel's autodetect software, and if the user wishes to, opens it.
                 pgDriverDownload.Visible = true;
 
                 string url = "https://downloadmirror.intel.com/28425/a08/Intel-Driver-and-Support-Assistant-Installer.exe";
@@ -231,7 +248,17 @@ namespace Project_Program_Downloader
                     MessageBox.Show("Sorry, There was a problem. Make sure you have an active internet connection and try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 pgDriverDownload.Visible = false;
+                intelDownload.Dispose();
+            }
+        }
 
+        private void oniMode(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.Alt)
+            {
+                Form2 onimode = new Form2();
+                onimode.Show();
+                
             }
         }
     }
