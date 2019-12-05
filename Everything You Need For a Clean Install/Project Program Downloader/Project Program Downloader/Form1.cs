@@ -1,16 +1,10 @@
-﻿using System;
-using System.IO;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Diagnostics;
 using System.Management;
+
 
 namespace Project_Program_Downloader
 {
@@ -25,43 +19,32 @@ namespace Project_Program_Downloader
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            //First we need to initialize a few vars. Checkwhatischecked is what our checkboxes's texts are.
-            //Checkboxnames are our checkboxes's names
-            //Whatischecked is going to give us the checked checkboxes.
-            
-            string[] CheckWhatisChecked = new string[] { "Firefox", "Chrome", "LibreOffice", "7Zip", "Skype", "Discord", "qBittorrent", "Steam", "Everything", "VSCode", "VLC", "KLiteCodecs", "Spotify" };
-            CheckBox[] checkBoxNames = new CheckBox[] { cbFirefox, cbBrowserChrome, cbLibreOffice, cb7Zip, cbSkype, cbDiscord, cbqBittorent, cbSteam, cbEverything, cbVSCode, cbVLC, cbkLiteCodecs, cbSpotify };
-            string[] Whatischecked = new string[13];
+            // First we need to initialize a few vars.
+            // url: Is the url we're going to use. It'll eventually contain the user's selection of software.
+            // everything: Is our dictionary that contains a checkbox, and its corresponding text. Used to check which checkbox is checked.
+
             string url = "";
-
-            //Check if checkboxes are checked. Then, append the corresponding text to our whatischecked array.
-            for (int i =0; i < checkBoxNames.Length; i++)
+            Dictionary<CheckBox, string> everything = new Dictionary<CheckBox, string>()
             {
-                if (checkBoxNames[i].Checked)
-                {
-                   Whatischecked = Whatischecked.Append(CheckWhatisChecked[i]).ToArray();
-                }
+                {cbFirefox,"Firefox" }, {cbBrowserChrome,"Chrome" },
+                {cbLibreOffice,"LibreOffice" },{cb7Zip,"7Zip" },
+                {cbSkype,"Skype" },{cbDiscord,"Discord" },
+                {cbqBittorent,"qBittorrent" },{cbSteam,"Steam" },
+                {cbEverything,"Everything" },{cbVSCode,"VSCode" },
+                {cbVLC,"VLC" },{cbkLiteCodecs,"KLiteCodecs" },
+                {cbSpotify,"Spotify" }
+            };
+
+            foreach (var item in everything)
+            {
+                if (item.Key.Checked) { url += (item.Value + "-"); }
             }
-                //We now create a url based on what checkboxes we found checked.
-
-                for(int i=0; i < Whatischecked.Length; i++)
-                {
-                    if(Whatischecked[i] == null | Whatischecked[i] == "" | Whatischecked[i] == " ")
-                    {
-                    //This is needed since we initiated an array with the length of 13 strings. If empty, do nothing
-                        continue;
-                    }
-                    else
-                    {
-                        url += Whatischecked[i] + "-";
-                    }
-                }
             try
-            {
+            {               
                 //Remove the last " - " from the url, and download the file using WebClient.
                 url = url.TrimEnd(url[url.Length - 1]);
                 string FinalUrl = "https://www.ninite.com/" + url + "/ninite.exe";
@@ -88,20 +71,9 @@ namespace Project_Program_Downloader
             catch (IndexOutOfRangeException) // If the user hasn't clicked any checkboxes.
             {
                 MessageBox.Show("Sorry, There was a problem. Make sure you have ticked programs and try again.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            
-            
+            }         
         }
 
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            
-        }
 
         private void bInstallExtensions_Click(object sender, EventArgs e)
         {
@@ -137,7 +109,7 @@ namespace Project_Program_Downloader
                 {
                     try
                     { 
-                    Process.Start(@"C:\Program Files\Mozilla Firefox\firefox.exe", FirefoxExtensionsDict[extensions]);
+                       Process.Start(@"C:\Program Files\Mozilla Firefox\firefox.exe", FirefoxExtensionsDict[extensions]);
                     }
                     catch
                     {
@@ -185,11 +157,11 @@ namespace Project_Program_Downloader
             lGPU.Text = "GPU:\n"+foundGPU;
             
             // Check the vendor and execute the appropriate commands.
-            if (foundGPU.Contains("NVIDIA") | foundGPU.Contains("GeForce"))
+            if (foundGPU.ToLower().Contains("nvidia") | foundGPU.Contains("geforce"))
             {
               Process.Start("https://www.nvidia.com/Download/Scan.aspx?lang=en-us"); // Open the Nvidia Autodetect site with the default browser.
             }
-            else if (foundGPU.Contains("AMD") | foundGPU.Contains("ATI"))
+            else if (foundGPU.ToLower().Contains("amd") | foundGPU.Contains("ati"))
             {
                 // AMD (and Intel) have their own downloadable Autodetect executable, unlike NVIDIA where you have to have Java installed.
                 pgDriverDownload.Visible = true;
@@ -256,10 +228,22 @@ namespace Project_Program_Downloader
         {
             if (e.Control && e.Alt)
             {
-                Form2 onimode = new Form2();
-                onimode.Show();
-                
+                using(Form2 onimode = new Form2())
+                {
+                    onimode.ShowDialog();
+                }
             }
         }
+      
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
     }
 }
