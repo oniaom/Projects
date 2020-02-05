@@ -2,6 +2,9 @@ import time
 import threading
 from appJar import gui
 def timer_Start():
+    global stop # This mitigates a problem where the user can't start the timer again
+    stop = False # If they stopped it once.
+
     #textFile = open("time.txt","w+") # open time.txt, or create if it doesn't exist
 
     minutesList = [i for i in range(int(prog.getSpinBox('minutes')))] # Specify minutes
@@ -43,7 +46,7 @@ def ThreadedTimer_Start(minutesList,secondsList):
 
 def Timer_Stop():
     global stop # using this global var, we're able to check it in the other function
-    stop = True
+    stop = True # That creates a problem where you can't start again after this //fixed
     
 stop=False
 prog = gui('OBS Timer')
