@@ -3,9 +3,9 @@ import threading
 from appJar import gui
 
 def timer_Start():
-    global stop # This mitigates a problem where the user can't start the timer again
-    stop = False # If they stopped it once.
-    try:
+    global stop # This mitigates a problem where the user can't start the timer again...
+    stop = False # ...If they stopped it once.
+    try: # Since there's a posibility of the user leaving one of the boxes empty by accident, we use try/catch
         minutesList = [i for i in range(int(prog.getSpinBox('Minutes')))] # Specify minutes
         secondsList = [i for i in range(int(prog.getSpinBox('Seconds')))] # Specify seconds
     except ValueError:
@@ -16,7 +16,7 @@ def timer_Start():
         secondsList = [i for i in range(60)] # This prevents the program not running if seconds = 0
 
     if not minutesList or minutesList == 0:
-        minutesList=['0'] # This prevents the main loop from not running if minuteslist is empty
+        minutesList=['0'] # This prevents the main loop from not running if minutesList is empty
 
     for second in range(len(secondsList)):
         if secondsList[second] <10:
@@ -30,12 +30,12 @@ def ThreadedTimer_Start(minutesList,secondsList):
     first_run = True # This is to prevent the timer starting one second later than intended
 
     textFile = open("time.txt","w+") # open time.txt, or create if it doesn't exist
-
+    # TODO: DON"T CREATE TEXT FILE UNTIL USER WANTS TO LOG TO FILE!!!
     for minute in reversed(minutesList):
-        if first_run: # To prevent time.sleep in the first run, check if it's indeed the first run
-            first_run = False
-        else: 
+        if not first_run: # To prevent time.sleep in the first run, check if it's indeed the first run
             time.sleep(1)
+        else: 
+            first_run = False
         # Check if the user said stop
         if stop:
             break
@@ -43,6 +43,7 @@ def ThreadedTimer_Start(minutesList,secondsList):
             # Check if the user said stop
             if stop:
                 break
+            # This section is about writing the time to a text file and displaying it on screen:
             if prog.getCheckBox('Log to file'):
                 textFile.close()  # Closing the text file resets its contents when re-opened
                 textFile = open("time.txt","w")
@@ -51,6 +52,7 @@ def ThreadedTimer_Start(minutesList,secondsList):
                 textFile.flush() # Flushing updates the contents in real-time
                 time.sleep(1)
                 secondsList = [i for i in range(59)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
+            # This section is about not writing to a text file, but instead just displaying it on screen:
             else:
                 prog.setLabel('labelCurrentTime',str(minute)+":"+str(second))
                 time.sleep(1)
@@ -61,6 +63,9 @@ def Timer_Stop():
     global stop # using this global var, we're able to check it in the other function
     stop = True # That creates a problem where you can't start again after this //fixed
     
+
+# This is the same as void main().
+# We initiate the user interface
 stop=False
 prog = gui('Timer')
 prog.setSize('500x200')
