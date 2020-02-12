@@ -6,7 +6,7 @@ def timer_Start():
     global stop # This mitigates a problem where the user can't start the timer again...
     stop = False # ...If they stopped it once.
     try: # Since there's a posibility of the user leaving one of the boxes empty by accident, we use try/catch
-        minutesList = [i for i in range(int(prog.getSpinBox('Minutes')))] # Specify minutes
+        minutesList = [i for i in range(int(prog.getSpinBox('Minutes'))+1)] # Specify minutes
         secondsList = [i for i in range(int(prog.getSpinBox('Seconds')))] # Specify seconds
     except ValueError:
         prog.errorBox("Error","One or both of your entries are blank!")
@@ -14,6 +14,7 @@ def timer_Start():
         
     if not secondsList:
         secondsList = [i for i in range(60)] # This prevents the program not running if seconds = 0
+        del(minutesList[-1])
 
     if not minutesList or minutesList == 0:
         minutesList=['0'] # This prevents the main loop from not running if minutesList is empty
@@ -27,15 +28,9 @@ def timer_Start():
 
 def ThreadedTimer_Start(minutesList,secondsList):
     global stop
-    first_run = True # This is to prevent the timer starting one second later than intended
-
     textFile = open("time.txt","w+") # open time.txt, or create if it doesn't exist
     # TODO: DON"T CREATE TEXT FILE UNTIL USER WANTS TO LOG TO FILE!!!
     for minute in reversed(minutesList):
-        if not first_run: # To prevent time.sleep in the first run, check if it's indeed the first run
-            time.sleep(1)
-        else: 
-            first_run = False
         # Check if the user said stop
         if stop:
             break
@@ -51,12 +46,12 @@ def ThreadedTimer_Start(minutesList,secondsList):
                 prog.setLabel('labelCurrentTime',str(minute)+":"+str(second))
                 textFile.flush() # Flushing updates the contents in real-time
                 time.sleep(1)
-                secondsList = [i for i in range(59)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
+                secondsList = [i for i in range(60)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
             # This section is about not writing to a text file, but instead just displaying it on screen:
             else:
                 prog.setLabel('labelCurrentTime',str(minute)+":"+str(second))
                 time.sleep(1)
-                secondsList = [i for i in range(59)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
+                secondsList = [i for i in range(60)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
 
 
 def Timer_Stop():
