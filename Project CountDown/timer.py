@@ -5,6 +5,10 @@ from appJar import gui
 def timer_Start():
     global stop # This mitigates a problem where the user can't start the timer again...
     stop = False # ...If they stopped it once.
+    # We check if the user accidentally started the timer (minutes and seconds = 0)
+    if (int(prog.getSpinBox('Minutes')) == 0 and int(prog.getSpinBox('Seconds'))) == 0:
+        prog.errorBox("No time selected!","You haven't selected a time!")
+        return
     try: # Since there's a posibility of the user leaving one of the boxes empty by accident, we use try/catch
         minutesList = [i for i in range(int(prog.getSpinBox('Minutes'))+1)] # Specify minutes
         secondsList = [i for i in range(int(prog.getSpinBox('Seconds')))] # Specify seconds
@@ -12,6 +16,7 @@ def timer_Start():
         prog.errorBox("Error","One or both of your entries are blank!")
         return
         
+
     if not secondsList:
         secondsList = [i for i in range(60)] # This prevents the program not running if seconds = 0
         del(minutesList[-1])
