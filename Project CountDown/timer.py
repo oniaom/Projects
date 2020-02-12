@@ -1,12 +1,11 @@
-import time
-import threading
+import time,threading
 from appJar import gui
 
 def timer_Start():
     global stop # This mitigates a problem where the user can't start the timer again...
     stop = False # ...If they stopped it once.
     # We check if the user accidentally started the timer (minutes and seconds = 0)
-    if (int(prog.getSpinBox('Minutes')) == 0 and int(prog.getSpinBox('Seconds'))) == 0:
+    if (int(prog.getSpinBox('Minutes')) == 0 and int(prog.getSpinBox('Seconds')) == 0):
         prog.errorBox("No time selected!","You haven't selected a time!")
         return
     try: # Since there's a posibility of the user leaving one of the boxes empty by accident, we use try/catch
@@ -21,7 +20,7 @@ def timer_Start():
         secondsList = [i for i in range(60)] # This prevents the program not running if seconds = 0
         del(minutesList[-1])
 
-    if not minutesList or minutesList == 0:
+    if not minutesList:
         minutesList=['0'] # This prevents the main loop from not running if minutesList is empty
 
     for second in range(len(secondsList)):
@@ -46,7 +45,7 @@ def ThreadedTimer_Start(minutesList,secondsList):
             # This section is about writing the time to a text file and displaying it on screen:
             if prog.getCheckBox('Log to file'):
                 textFile.close()  # Closing the text file resets its contents when re-opened
-                textFile = open("time.txt","w")
+                textFile = open("time.txt","w+")
                 textFile.write(str(minute)+":"+str(second))
                 prog.setLabel('labelCurrentTime',str(minute)+":"+str(second))
                 textFile.flush() # Flushing updates the contents in real-time
