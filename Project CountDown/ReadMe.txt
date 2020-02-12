@@ -1,3 +1,4 @@
 !! Needs appjar !!
-This is a countdown timer specifically designed for programs such as OBS.
-it takes user input and counts down in a text file.
+This is a countdown timer with the addition of being able to log the time to a text file
+Can be used with programs such as OBS, or just as a normal timer!
+
