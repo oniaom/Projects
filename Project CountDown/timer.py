@@ -1,20 +1,22 @@
 import time
 import threading
 from appJar import gui
+
 def timer_Start():
     global stop # This mitigates a problem where the user can't start the timer again
     stop = False # If they stopped it once.
-
-    #textFile = open("time.txt","w+") # open time.txt, or create if it doesn't exist
-
-    minutesList = [i for i in range(int(prog.getSpinBox('minutes')))] # Specify minutes
-    secondsList = [i for i in range(int(prog.getSpinBox('seconds')))] # Specify seconds
-
+    try:
+        minutesList = [i for i in range(int(prog.getSpinBox('Minutes')))] # Specify minutes
+        secondsList = [i for i in range(int(prog.getSpinBox('Seconds')))] # Specify seconds
+    except ValueError:
+        prog.errorBox("Error","One or both of your entries are blank!")
+        return
+        
     if not secondsList:
-        secondsList = [i for i in range(59)] # This prevents the program not running if seconds = 0
+        secondsList = [i for i in range(60)] # This prevents the program not running if seconds = 0
 
-    if not minutesList:
-        minutesList=['0']
+    if not minutesList or minutesList == 0:
+        minutesList=['0'] # This prevents the main loop from not running if minuteslist is empty
 
     for second in range(len(secondsList)):
         if secondsList[second] <10:
@@ -25,9 +27,15 @@ def timer_Start():
 
 def ThreadedTimer_Start(minutesList,secondsList):
     global stop
+    first_run = True # This is to prevent the timer starting one second later than intended
+
     textFile = open("time.txt","w+") # open time.txt, or create if it doesn't exist
+
     for minute in reversed(minutesList):
-        time.sleep(1)
+        if first_run: # To prevent time.sleep in the first run, check if it's indeed the first run
+            first_run = False
+        else: 
+            time.sleep(1)
         # Check if the user said stop
         if stop:
             break
@@ -35,28 +43,35 @@ def ThreadedTimer_Start(minutesList,secondsList):
             # Check if the user said stop
             if stop:
                 break
+            if prog.getCheckBox('Log to file'):
+                textFile.close()  # Closing the text file resets its contents when re-opened
+                textFile = open("time.txt","w")
+                textFile.write(str(minute)+":"+str(second))
+                prog.setLabel('labelCurrentTime',str(minute)+":"+str(second))
+                textFile.flush() # Flushing updates the contents in real-time
+                time.sleep(1)
+                secondsList = [i for i in range(59)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
+            else:
+                prog.setLabel('labelCurrentTime',str(minute)+":"+str(second))
+                time.sleep(1)
+                secondsList = [i for i in range(59)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
 
-            textFile.close()  # Closing the text file resets its contents when re-opened
-            textFile = open("time.txt","w")
-            textFile.write(str(minute)+":"+str(second))
-            prog.setLabel('labelCurrentTime',str(minute)+":"+str(second))
-            textFile.flush() # Flushing updates the contents in real-time
-            time.sleep(1)
-            secondsList = [i for i in range(59)] # Making sure it won't start the next cycle with the user selected seconds but start from 59 instead.
 
 def Timer_Stop():
     global stop # using this global var, we're able to check it in the other function
     stop = True # That creates a problem where you can't start again after this //fixed
     
 stop=False
-prog = gui('OBS Timer')
+prog = gui('Timer')
 prog.setSize('500x200')
 prog.setSticky('nw')
-prog.addLabelSpinBox('minutes',[i for i in range(200)],row=0,column=0)
+prog.addLabelSpinBox('Minutes',[i for i in range(200)],row=0,column=0)
 prog.setSticky('nw')
-prog.addLabelSpinBox('seconds',[i for i in range(60)],row=0,column=1)
+prog.addLabelSpinBox('Seconds',[i for i in range(60)],row=0,column=1)
 prog.setSticky('news')
 prog.addButton("Start",timer_Start,row=1,column=0)
 prog.addButton('Stop',Timer_Stop,row=1,column=1)
-prog.addLabel('labelCurrentTime',text='The timer will be shown here.')
+prog.addLabel('labelCurrentTime',text='Timer will be shown here as well.',row=2,column=1)
+prog.addCheckBox('Log to file',row=2,column=0)
+prog.setCheckBox('Log to file')
 prog.go()
