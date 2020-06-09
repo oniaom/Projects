@@ -9,7 +9,7 @@
 #   However, the last digit must never be 0 or >=8
 
 
-# For Win 97+ OEM keys, there are other rules
+# For Win 98+ OEM keys, there are other rules
 
 # The first segment, has 5 numbers.
 #   The first 3 represent a day so anything between 001 and 366
