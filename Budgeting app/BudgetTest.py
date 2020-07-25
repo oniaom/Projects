@@ -34,9 +34,12 @@ def Calculation():
     # Sanity check that you can ACTUALLY save anything at all:
     if Remaining_Salary <= 0:
         prog.errorBox("Not Enough Money","Your remaining salary is not enough to cover everything. Please cut expenses and try again.")
+        return
 
     # So after we've sorted out the remaining salary, let's do some mathy moo to check how much salary can be saved (extreme edition) (gone wrong)
-    prog.setLabel("Calculated budget will be shown here","This is as much as you can save: " + "€" +str(Remaining_Salary - Everything["Debt_Payments"]))
+    Final_Savings = Remaining_Salary - Everything["Debt_Payments"]
+
+    prog.setLabel("Calculated budget will be shown here","This is as much as you can save: " + "€" +str(Final_Savings if Final_Savings >0 else prog.errorBox("Not Enough Money","Your remaining salary is not enough to cover everything. Please cut expenses and try again.")))
     
 
 LabelEntries = ["Monthly Salary     €","Debt    €","Debt Payments   €","Ongoing Payments (Monthly)  €", "Necessary monthly expenses (Gas, food, etc.)     €"]
